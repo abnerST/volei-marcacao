@@ -1,96 +1,131 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <title>Lista de Vôlei</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      text-align: left;
-    }
-
-    th, td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      vertical-align: top;
-      cursor: pointer;
-    }
-
-    th {
-      background-color: #b2dfdb;
-    }
-
-    .horario {
-      background-color: #a5d6a7;
-      font-weight: bold;
-      text-align: center;
-      cursor: default;
-    }
-
-    .popup {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .popup-content {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      min-width: 300px;
-    }
-
-    .popup input {
-      width: 100%;
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista de Vôlei 🏐</title>
+  <style>body {
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  h1 {
+    margin-top: 20px;
+    color: #2e7d32;
+  }
+  
+  table {
+    border-collapse: collapse;
+    margin: 20px 0;
+    width: 95%;
+    max-width: 800px;
+  }
+  
+  th, td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: top;
+  }
+  
+  th {
+    background-color: #a5d6a7;
+  }
+  
+  td {
+    background-color: #e8f5e9;
+  }
+  
+  td ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  td li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2px 0;
+  }
+  
+  #popup {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+  
+  #popupContent {
+    background-color: #e8f5e9;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  
+  input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  button {
+    background-color: #a5d6a7;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #81c784;
+  }
+  
+  @media (max-width: 600px) {
+    table, th, td {
+      font-size: 12px;
       padding: 8px;
-      margin-top: 10px;
     }
-
-    .popup button {
-      margin-top: 10px;
-      padding: 8px 16px;
+  
+    input[type="text"] {
+      font-size: 14px;
     }
-
-    ul {
-      margin: 0;
-      padding-left: 16px;
-    }
-
-    li {
-      list-style-type: "- ";
-    }
+  }
+  
   </style>
 </head>
 <body>
-  <h2>🏐 Lista de Vôlei</h2>
-  <p>Clique em um horário para adicionar seu nome:</p>
-
+  <h1>Lista de Vôlei 🏐</h1>
   <table>
     <thead>
       <tr>
-        <th></th>
-        <th>Segunda-feira</th>
-        <th>Terça-feira</th>
-        <th>Quarta-feira</th>
-        <th>Quinta-feira</th>
-        <th>Sexta-feira</th>
+        <th>Turno</th>
+        <th>Segunda</th>
+        <th>Terça</th>
+        <th>Quarta</th>
+        <th>Quinta</th>
+        <th>Sexta</th>
         <th>Sábado</th>
         <th>Domingo</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="horario">Manhã</td>
+        <th>Manhã</th>
         <td data-dia="segunda" data-turno="manha"></td>
         <td data-dia="terca" data-turno="manha"></td>
         <td data-dia="quarta" data-turno="manha"></td>
@@ -100,7 +135,7 @@
         <td data-dia="domingo" data-turno="manha"></td>
       </tr>
       <tr>
-        <td class="horario">Tarde</td>
+        <th>Tarde</th>
         <td data-dia="segunda" data-turno="tarde"></td>
         <td data-dia="terca" data-turno="tarde"></td>
         <td data-dia="quarta" data-turno="tarde"></td>
@@ -110,7 +145,7 @@
         <td data-dia="domingo" data-turno="tarde"></td>
       </tr>
       <tr>
-        <td class="horario">Noite</td>
+        <th>Noite</th>
         <td data-dia="segunda" data-turno="noite"></td>
         <td data-dia="terca" data-turno="noite"></td>
         <td data-dia="quarta" data-turno="noite"></td>
@@ -122,103 +157,101 @@
     </tbody>
   </table>
 
-  <!-- bota o nome -->
-  <div class="popup" id="popup">
-    <div class="popup-content">
-      <h3>Adicionar nome</h3>
-      <input type="text" id="nomeInput" placeholder="Digite seu nome" />
+  <div id="popup">
+    <div id="popupContent">
+      <h3>Digite seu nome:</h3>
+      <input type="text" id="nomeInput" placeholder="Seu nome" />
+      <br />
       <button id="confirmarBtn">Confirmar</button>
-      <button onclick="fecharPopup()">Cancelar</button>
     </div>
   </div>
 
   <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-import {
-  getDatabase,
-  ref,
-  onValue,
-  push,
-  remove
-} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import {
+      getDatabase,
+      ref,
+      onValue,
+      push,
+      remove
+    } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDHIr8o-E3-G-Ly3hi-obzRx7phc_Tka0w",
-  authDomain: "volei-marcacao.firebaseapp.com",
-  databaseURL: "https://volei-marcacao-default-rtdb.firebaseio.com",
-  projectId: "volei-marcacao",
-  storageBucket: "volei-marcacao.firebasestorage.app",
-  messagingSenderId: "431999192877",
-  appId: "1:431999192877:web:0552f0a02cce43427ccda4"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyDHIr8o-E3-G-Ly3hi-obzRx7phc_Tka0w",
+      authDomain: "volei-marcacao.firebaseapp.com",
+      databaseURL: "https://volei-marcacao-default-rtdb.firebaseio.com",
+      projectId: "volei-marcacao",
+      storageBucket: "volei-marcacao.firebasestorage.app",
+      messagingSenderId: "431999192877",
+      appId: "1:431999192877:web:0552f0a02cce43427ccda4"
+    };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-let diaSelecionado = null;
-let turnoSelecionado = null;
+    let diaSelecionado = null;
+    let turnoSelecionado = null;
 
-const popup = document.getElementById("popup");
-const nomeInput = document.getElementById("nomeInput");
-const confirmarBtn = document.getElementById("confirmarBtn");
+    const popup = document.getElementById("popup");
+    const nomeInput = document.getElementById("nomeInput");
+    const confirmarBtn = document.getElementById("confirmarBtn");
 
-function abrirPopup(dia, turno) {
-  diaSelecionado = dia;
-  turnoSelecionado = turno;
-  nomeInput.value = "";
-  popup.style.display = "flex";
-  nomeInput.focus();
-}
+    function abrirPopup(dia, turno) {
+      diaSelecionado = dia;
+      turnoSelecionado = turno;
+      nomeInput.value = "";
+      popup.style.display = "flex";
+      nomeInput.focus();
+    }
 
-function fecharPopup() {
-  popup.style.display = "none";
-}
+    function fecharPopup() {
+      popup.style.display = "none";
+    }
 
-confirmarBtn.addEventListener("click", () => {
-  const nome = nomeInput.value.trim();
-  if (nome && diaSelecionado && turnoSelecionado) {
-    const refLocal = ref(db, `dias/${diaSelecionado}/${turnoSelecionado}`);
-    push(refLocal, nome);
-    fecharPopup();
-  }
-});
-
-document.querySelectorAll("td[data-dia]").forEach(td => {
-  const dia = td.dataset.dia;
-  const turno = td.dataset.turno;
-  const refLocal = ref(db, `dias/${dia}/${turno}`);
-
-  td.addEventListener("click", () => abrirPopup(dia, turno));
-
-  onValue(refLocal, (snapshot) => {
-    td.innerHTML = "";
-    const ul = document.createElement("ul");
-    snapshot.forEach(child => {
-      const li = document.createElement("li");
-      const nome = child.val();
-      const id = child.key;
-
-      li.innerHTML = `
-        ${nome}
-        <button style="margin-left: 10px; background: none; border: none; color: red; cursor: pointer;" title="Remover">
-          ❌
-        </button>
-      `;
-      
-      li.querySelector("button").addEventListener("click", (e) => {
-        e.stopPropagation(); 
-        if (confirm(`Remover "${nome}"?`)) {
-          const deleteRef = ref(db, `dias/${dia}/${turno}/${id}`);
-          remove(deleteRef);
-        }
-      });
-
-      ul.appendChild(li);
+    confirmarBtn.addEventListener("click", () => {
+      const nome = nomeInput.value.trim();
+      if (nome && diaSelecionado && turnoSelecionado) {
+        const refLocal = ref(db, `dias/${diaSelecionado}/${turnoSelecionado}`);
+        push(refLocal, nome);
+        fecharPopup();
+      }
     });
-    td.appendChild(ul);
-  });
-});
 
+    document.querySelectorAll("td[data-dia]").forEach(td => {
+      const dia = td.dataset.dia;
+      const turno = td.dataset.turno;
+      const refLocal = ref(db, `dias/${dia}/${turno}`);
+
+      td.addEventListener("click", () => abrirPopup(dia, turno));
+
+      onValue(refLocal, (snapshot) => {
+        td.innerHTML = "";
+        const ul = document.createElement("ul");
+        snapshot.forEach(child => {
+          const li = document.createElement("li");
+          const nome = child.val();
+          const id = child.key;
+
+          li.innerHTML = `
+            ${nome}
+            <button style="margin-left: 10px; background: none; border: none; color: red; cursor: pointer;" title="Remover">
+              ❌
+            </button>
+          `;
+          
+          li.querySelector("button").addEventListener("click", (e) => {
+            e.stopPropagation(); // não abre o popup
+            if (confirm(`Remover "${nome}"?`)) {
+              const deleteRef = ref(db, `dias/${dia}/${turno}/${id}`);
+              remove(deleteRef);
+            }
+          });
+
+          ul.appendChild(li);
+        });
+        td.appendChild(ul);
+      });
+    });
   </script>
 </body>
 </html>
