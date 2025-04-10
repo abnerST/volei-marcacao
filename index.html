@@ -157,6 +157,10 @@
     </tbody>
   </table>
 
+  <h2 style="color:#2e7d32">🌟 Confirmados para jogar (8 ou mais)</h2>
+<div id="resumo" style="margin-bottom: 40px; background: #f1f8e9; border: 1px solid #c5e1a5; border-radius: 8px; padding: 20px; font-size: 16px; color: #33691e; width: 95%; max-width: 800px;"></div>
+
+
   <div id="popup">
     <div id="popupContent">
       <h3>Digite seu nome:</h3>
@@ -165,6 +169,9 @@
       <button id="confirmarBtn">Confirmar</button>
     </div>
   </div>
+
+
+  
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
@@ -252,6 +259,65 @@
         td.appendChild(ul);
       });
     });
+
+    atualizarResumo();
+
+
+
+    function atualizarResumo() {
+  const dbRef = ref(db, 'dias');
+  onValue(dbRef, (snapshot) => {
+    const data = snapshot.val();
+    const resumoDiv = document.getElementById('resumo');
+    resumoDiv.innerHTML = '';
+
+    const diasSemana = {
+      segunda: 'Segunda',
+      terca: 'Terça',
+      quarta: 'Quarta',
+      quinta: 'Quinta',
+      sexta: 'Sexta',
+      sabado: 'Sábado',
+      domingo: 'Domingo'
+    };
+
+    const turnos = {
+      manha: 'Manhã',
+      tarde: 'Tarde',
+      noite: 'Noite'
+    };
+
+    const listaResumo = [];
+
+    for (const dia in data) {
+      for (const turno in data[dia]) {
+        const nomes = Object.values(data[dia][turno] || {});
+        if (nomes.length >= 8) {
+          listaResumo.push({
+            dia: diasSemana[dia],
+            turno: turnos[turno],
+            nomes
+          });
+        }
+      }
+    }
+
+    if (listaResumo.length === 0) {
+      resumoDiv.innerHTML = "<p>⏳ Ainda não há 8 ou mais pessoas em nenhum período.</p>";
+    } else {
+      listaResumo.forEach(item => {
+        const bloco = document.createElement('div');
+        bloco.style.marginBottom = '15px';
+        bloco.innerHTML = `<strong>${item.dia} - ${item.turno}</strong><br>${item.nomes.join(', ')}`;
+        resumoDiv.appendChild(bloco);
+      });
+    }
+  });
+}
+
+
   </script>
+
+
 </body>
 </html>
